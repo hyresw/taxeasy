@@ -134,29 +134,6 @@ Returns the supported tax years and their key IRS limits (brackets, standard ded
 
 ---
 
-## 🛠️ Extending the Project
-
-**Adding a new tax year:** Add a new entry to `TAX_YEARS` in `tax_data.py` following the existing pattern. Update the year dropdown in `templates/index.html`.
-
-**Adding a new credit or deduction:** Add the field to `compute_tax()` in `app.py`. Add the UI input/toggle in `static/app.js`. Update the state shape in `freshState()`.
-
-**Unit testing the tax engine:**
-```python
-from app import compute_tax
-
-result = compute_tax({
-    "taxYear": 2024,
-    "filing": {"status": "single", "dependents": "0", "age": "30"},
-    "income": {"wages": "60000", "selfEmployed": "0", "investments": "0", "other": "0", "withheld": "0"},
-    "deductions": {},
-    "credits": {},
-})
-print(result["fed_tax"])   # → 6617
-print(result["eff_rate"])  # → 11.0
-```
-
----
-
 ## ⚠️ Disclaimer
 
 **This tool provides estimates for federal income tax only.** It does not account for state or local taxes, AMT, NIIT (3.8%), passive activity rules, phase-outs, or other special circumstances. Always consult a qualified CPA for your actual tax return.
